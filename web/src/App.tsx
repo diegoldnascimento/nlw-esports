@@ -1,18 +1,13 @@
 import { useState } from "react";
-
-type ButtonProps = {
-  title: string;
-};
-
-function Button(props: ButtonProps) {
-  return <button>{props.title}</button>;
-}
+import logoImg from "./assets/logo-nlw-esports.png";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hello world!</h1>
-      <Button title={"Enviar"} />
+    <div className="max-w-{1334px} mx-auto flex flex-col items-center my-20">
+      <img src={logoImg} alt="" />
+      <h1 className="text-6xl text-white font-black mt-20">
+        Seu duo está aqui
+      </h1>
     </div>
   );
 }
