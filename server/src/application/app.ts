@@ -7,6 +7,8 @@ import {
 import { PrismaClient } from "@prisma/client";
 import cors from "cors";
 import { GetGamesController } from "./controllers/games/getGamesController";
+import { getGamesControllerFactory } from "../main/factories/controllers/games/getGamesControllerFactory";
+import { router } from "./protocols/http/router";
 
 const app = express();
 const prismaClient = new PrismaClient({
@@ -16,19 +18,7 @@ const prismaClient = new PrismaClient({
 app.use(express.json());
 app.use(cors());
 
-app.get("/", (req: Request, res: Response) => {
-  const response = {
-    status: "ok",
-  };
-
-  res.status(200).json(response);
-});
-
-// TODO: Migrate the function to start using Clean Architecture
-app.get("/v1/games", async (req: Request, res: Response) => {
-  const controller = new GetGamesController(prismaClient);
-  await controller.handleRequest(req, res);
-});
+app.use(router);
 
 app.get("/v1/games/:id", async (req: Request, res: Response) => {
   try {

@@ -1,28 +1,20 @@
-import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import {
   httpResponse,
   httpStatusCode,
 } from "../../../presentation/http/httpResponse";
+import { GetGamesUseCase } from "../../useCases/games/getGamesUseCase";
 
 export class GetGamesController {
-  readonly prismaClient: PrismaClient;
+  readonly useCase: GetGamesUseCase;
 
-  constructor(prismaClient: PrismaClient) {
-    this.prismaClient = prismaClient;
+  constructor(useCase: GetGamesUseCase) {
+    this.useCase = useCase;
   }
 
-  async handleRequest(request: Request, response: Response) {
+  async handleRequest(_request: Request, response: Response) {
     try {
-      const games = await this.prismaClient.game.findMany({
-        include: {
-          _count: {
-            select: {
-              ads: true,
-            },
-          },
-        },
-      });
+      const games = await this.useCase.execute();
 
       if (games.length == 0) {
         return response.status(httpStatusCode.NOT_FOUND).json(httpResponse({}));
@@ -30,7 +22,6 @@ export class GetGamesController {
 
       return response.status(httpStatusCode.OK).json(httpResponse(games));
     } catch (error: any) {
-      console.log({ error });
       return response
         .status(httpStatusCode.INTERNAL_SERVER_ERROR)
         .json(httpResponse(error));
