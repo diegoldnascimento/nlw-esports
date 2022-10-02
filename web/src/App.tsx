@@ -22,6 +22,8 @@ function App() {
     setHasUserClickedOnButton(true);
   };
 
+  const handle = () => {};
+
   useEffect(() => {
     fetch("http://localhost:3000/v1/games")
       .then((res) => res.json())
@@ -33,7 +35,7 @@ function App() {
   }, []);
 
   return (
-    <div className="max-w-{1334px} mx-auto flex flex-col items-center my-20">
+    <div className="max-w-6xl mx-auto flex flex-col items-center my-20">
       <img src={logoImg} alt="" />
       <h1 className="text-6xl text-white font-black mt-20">
         Seu{" "}
