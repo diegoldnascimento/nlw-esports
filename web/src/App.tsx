@@ -1,9 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logoImg from "./assets/logo-nlw-esports.png";
 import { Callout } from "./presentation/components/callout/Callout";
 import { Game } from "./presentation/components/game/Game";
 
+interface GetGameOutput {
+  id: string;
+  title: string;
+  backgroundImageUrl: string;
+  createdAt: Date;
+  updatedAt: Date;
+  _count: {
+    ads: number;
+  };
+}
+
 function App() {
+  const [hasUserClickedOnButton, setHasUserClickedOnButton] = useState(false);
+  const [games, setGames] = useState<GetGameOutput[]>([]);
+
+  const handleButtonClick = () => {
+    setHasUserClickedOnButton(true);
+  };
+
+  useEffect(() => {
+    fetch("http://localhost:3000/v1/games")
+      .then((res) => res.json())
+      .then((res) => {
+        setGames(res);
+      });
+
+    console.log("Opa!@");
+  }, []);
+
   return (
     <div className="max-w-{1334px} mx-auto flex flex-col items-center my-20">
       <img src={logoImg} alt="" />
@@ -16,37 +44,19 @@ function App() {
       </h1>
 
       <div className="grid grid-cols-6 gap-6 mt-16">
-        <Game
-          title="League of Legends"
-          subtitle="4 anùncios"
-          backgroundImageUrl="/game-1.png"
-        />
-
-        <Game
-          title="Apex Legends"
-          subtitle="4 anùncios"
-          backgroundImageUrl="/game-4.png"
-        />
-        <Game
-          title="CS-GO"
-          subtitle="4 anùncios"
-          backgroundImageUrl="/game-3.png"
-        />
-        <Game
-          title="World of Warcraft"
-          subtitle="4 anùncios"
-          backgroundImageUrl="/game-6.png"
-        />
-        <Game
-          title="Dota 2"
-          subtitle="4 anùncios"
-          backgroundImageUrl="/game-2.png"
-        />
-        <Game
-          title="Fortinite"
-          subtitle="4 anùncios"
-          backgroundImageUrl="/game-5.png"
-        />
+        {games &&
+          games.length > 0 &&
+          games.map((game: GetGameOutput) => {
+            return (
+              <Game
+                key={game.id}
+                id={game.id}
+                title={game.title}
+                subtitle={`${game._count.ads} anuncio`}
+                backgroundImageUrl={game.backgroundImageUrl}
+              />
+            );
+          })}
       </div>
 
       <Callout
