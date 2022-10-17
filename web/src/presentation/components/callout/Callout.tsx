@@ -1,5 +1,6 @@
 import { MagnifyingGlassPlus } from "phosphor-react";
 import React from "react";
+import * as Dialog from '@radix-ui/react-dialog';
 
 type CalloutProps = {
   title: string;
@@ -14,11 +15,11 @@ const Callout = ({ title, subtitle }: CalloutProps) => {
           <h3 className="text-2xl text-white font-black">{title}</h3>
           <h4 className="text-zinc-400">{subtitle}</h4>
         </div>
-        <button className="py-3 px-6 bg-violet-500 hover:bg-violet-600 text-white rounded flex items-center gap-3">
+        <Dialog.Trigger className="py-3 px-6 bg-violet-500 hover:bg-violet-600 text-white rounded flex items-center gap-3">
           <MagnifyingGlassPlus size={24} />
 
           {"Pùblicar Anùncio"}
-        </button>
+        </Dialog.Trigger>
       </div>
     </section>
   );
