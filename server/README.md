@@ -1,5 +1,22 @@
 # NLW eSports HTTP Server
 
+## Installation
+
+### Before you start
+
+Don't forget to install all of dependencies required to get the service up and running by executing the following command:
+```
+yarn install
+```
+
+### Getting Started
+
+Start the seed migration to the DB that is located at `prisma/seed.ts`. To get that, you have to run the following command:
+
+```
+yarn run prisma db seed
+```
+
 ## Use Cases
 
 - The listing of games with the number of ads
