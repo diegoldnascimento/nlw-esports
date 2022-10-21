@@ -9,6 +9,9 @@
     "db:migrate:dev": "prisma migrate dev",
     "db:studio": "prisma studio"
   },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
   "dependencies": {
     "@prisma/client": "^4.3.1",
     "@types/express": "^4.17.14",
