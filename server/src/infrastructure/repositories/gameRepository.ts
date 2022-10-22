@@ -10,4 +10,14 @@ export class GameRepository {
   getAll(args: {}) {
     return this.prismaClient.game.findMany(args);
   }
+
+  get(id: null | string) {
+    if (id === null) {
+      return this.prismaClient.game.findFirst();
+    }
+
+    return this.prismaClient.game.findFirst({
+      where: { id },
+    });
+  }
 }

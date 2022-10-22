@@ -7,7 +7,6 @@ import {
 import { PrismaClient } from "@prisma/client";
 import cors from "cors";
 import { GetGamesController } from "./controllers/games/getGamesController";
-import { getGamesControllerFactory } from "../main/factories/controllers/games/getGamesControllerFactory";
 import { router } from "./protocols/http/router";
 
 const app = express();
@@ -20,29 +19,6 @@ app.use(cors());
 
 app.use(router);
 
-app.get("/v1/games/:id", async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-
-    if (!id) {
-      return res.status(httpStatusCode.BAD_REQUEST).json(httpResponse({}));
-    }
-
-    const game = await prismaClient.game.findFirst({
-      where: { id },
-    });
-
-    if (!game) {
-      return res.status(httpStatusCode.NOT_FOUND).json(httpResponse({}));
-    }
-
-    return res.status(httpStatusCode.OK).json(httpResponse(game));
-  } catch (error: any) {
-    return res
-      .status(httpStatusCode.INTERNAL_SERVER_ERROR)
-      .json(httpResponse(error));
-  }
-});
 
 app.post("/v1/games", async (req: Request, res: Response) => {
   try {
