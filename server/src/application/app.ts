@@ -1,12 +1,10 @@
 import express, { Request, Response } from "express";
-import { Ad } from "../domain/entity/ad";
 import {
   httpStatusCode,
   httpResponse,
 } from "../presentation/http/httpResponse";
 import { PrismaClient } from "@prisma/client";
 import cors from "cors";
-import { GetGamesController } from "./controllers/games/getGamesController";
 import { router } from "./protocols/http/router";
 
 const app = express();
@@ -18,7 +16,6 @@ app.use(express.json());
 app.use(cors());
 
 app.use(router);
-
 
 app.post("/v1/games", async (req: Request, res: Response) => {
   try {
@@ -50,8 +47,8 @@ app.post("/v1/games", async (req: Request, res: Response) => {
   }
 });
 
-app.put("/v1/games/:id", (_req: Request, res: Response) => {});
-app.patch("/v1/games/:id", (_req: Request, res: Response) => {});
+app.put("/v1/games/:id", (_req: Request, _res: Response) => {});
+app.patch("/v1/games/:id", (_req: Request, _res: Response) => {});
 
 // List all the Ads of a Game
 app.get("/v1/games/:id/ads", async (req: Request, res: Response) => {
@@ -142,7 +139,7 @@ app.get("/v1/ads", async (_req: Request, res: Response) => {
   }
 });
 
-app.post("/v1/ads", (req: Request, res: Response) => {
+app.post("/v1/ads", (_req: Request, res: Response) => {
   const response = {};
 
   res.status(httpStatusCode.CREATED).json(httpResponse(response));
