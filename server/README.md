@@ -65,3 +65,8 @@ model Ad {
 - HTTP Server: Express
 - Database: SQLite
 - Database ORM: Primsa
+
+## Clean Architecture Diagrams
+
+![Alt text](./docs/nlw-esports-clean-architecture.png?raw=true")
+
