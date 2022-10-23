@@ -17,40 +17,6 @@ app.use(cors());
 
 app.use(router);
 
-app.post("/v1/games", async (req: Request, res: Response) => {
-  try {
-    const { body } = req;
-
-    if (!body) {
-      return res.status(httpStatusCode.BAD_REQUEST).json(httpResponse({}));
-    }
-
-    const data = {
-      title: body.title,
-      backgroundImageUrl: body.backgroundImageUrl,
-    };
-
-    const game = await prismaClient.game.create({ data });
-
-    if (!game) {
-      return res
-        .status(httpStatusCode.INTERNAL_SERVER_ERROR)
-        .json(httpResponse({}));
-    }
-
-    return res.status(httpStatusCode.CREATED).json(httpResponse(game));
-  } catch (error: any) {
-    console.log({ error });
-    return res
-      .status(httpStatusCode.INTERNAL_SERVER_ERROR)
-      .json(httpResponse(error));
-  }
-});
-
-app.put("/v1/games/:id", (_req: Request, _res: Response) => {});
-app.patch("/v1/games/:id", (_req: Request, _res: Response) => {});
-
-// List all the Ads of a Game
 app.get("/v1/games/:id/ads", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;

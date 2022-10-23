@@ -20,4 +20,8 @@ export class GameRepository {
       where: { id },
     });
   }
+
+  create(data: {}) {
+    return this.prismaClient.game.create({ data })
+  }
 }
