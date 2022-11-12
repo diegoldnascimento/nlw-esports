@@ -1,4 +1,3 @@
-
 import { GameRepository } from "../../../infrastructure/repositories/gameRepository";
 
 type Input = {

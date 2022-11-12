@@ -13,32 +13,32 @@ export class CreateGamesController {
   }
 
   async handleRequest(req: Request, res: Response) {
-  try {
-    const { body } = req;
+    try {
+      const { body } = req;
 
-    if (!body) {
-      return res.status(httpStatusCode.BAD_REQUEST).json(httpResponse({}));
-    }
+      if (!body) {
+        return res.status(httpStatusCode.BAD_REQUEST).json(httpResponse({}));
+      }
 
-    const data = {
-      title: body.title,
-      backgroundImageUrl: body.backgroundImageUrl,
-    };
+      const data = {
+        title: body.title,
+        backgroundImageUrl: body.backgroundImageUrl,
+      };
 
-    const game = await this.useCase.execute(data);
+      const game = await this.useCase.execute(data);
 
-    if (!game) {
+      if (!game) {
+        return res
+          .status(httpStatusCode.INTERNAL_SERVER_ERROR)
+          .json(httpResponse({}));
+      }
+
+      return res.status(httpStatusCode.CREATED).json(httpResponse(game));
+    } catch (error: any) {
+      console.log({ error });
       return res
         .status(httpStatusCode.INTERNAL_SERVER_ERROR)
-        .json(httpResponse({}));
+        .json(httpResponse(error));
     }
-
-    return res.status(httpStatusCode.CREATED).json(httpResponse(game));
-  } catch (error: any) {
-    console.log({ error });
-    return res
-      .status(httpStatusCode.INTERNAL_SERVER_ERROR)
-      .json(httpResponse(error));
-  }
   }
 }

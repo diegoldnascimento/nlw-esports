@@ -89,21 +89,6 @@ app.post("/v1/games/:id/ads", async (req: Request, res: Response) => {
   }
 });
 
-app.get("/v1/ads", async (_req: Request, res: Response) => {
-  try {
-    const ads = await prismaClient.ad.findMany({});
-
-    if (ads.length == 0) {
-      return res.status(httpStatusCode.NOT_FOUND).json(httpResponse({}));
-    }
-
-    return res.status(httpStatusCode.OK).json(httpResponse(ads));
-  } catch (error: any) {
-    return res
-      .status(httpStatusCode.INTERNAL_SERVER_ERROR)
-      .json(httpResponse(error));
-  }
-});
 
 app.post("/v1/ads", (_req: Request, res: Response) => {
   const response = {};

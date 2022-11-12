@@ -3,6 +3,7 @@ import { getGamesControllerFactory } from "../../../main/factories/controllers/g
 import { getGameControllerFactory } from "../../../main/factories/controllers/games/getGameControllerFactory";
 import { createGamesControllerFactory } from "../../../main/factories/controllers/games/createGamesControllerFactory";
 import { healthcheckControllerFactory } from "../../../main/factories/controllers/healthcheck/healthcheckControllerFactory";
+import { getAdsControllerFactory } from "../../../main/factories/controllers/ads/getAdsControllerFactory";
 
 const router = express.Router();
 
@@ -29,5 +30,10 @@ router.post("/v1/games", async (req: Request, res: Response) => {
 router.put("/v1/games/:id", (_req: Request, _res: Response) => {});
 
 router.patch("/v1/games/:id", (_req: Request, _res: Response) => {});
+
+router.get("/v1/ads", async (req: Request, res: Response) => {
+  const { getAdsController } = getAdsControllerFactory(); console.log(req)
+  await getAdsController.handleRequest(req, res);
+});
 
 export { router };
