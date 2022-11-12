@@ -32,7 +32,7 @@ router.put("/v1/games/:id", (_req: Request, _res: Response) => {});
 router.patch("/v1/games/:id", (_req: Request, _res: Response) => {});
 
 router.get("/v1/ads", async (req: Request, res: Response) => {
-  const { getAdsController } = getAdsControllerFactory(); console.log(req)
+  const { getAdsController } = getAdsControllerFactory();
   await getAdsController.handleRequest(req, res);
 });
 
