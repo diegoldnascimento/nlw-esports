@@ -2,15 +2,15 @@ import { GameRepository } from "../../../infrastructure/repositories/gameReposit
 
 type Input = {
   id: string;
-}
+};
 
 type Output = {
   id: string;
   title: string;
-  backgroundImage: string;
-  createdAt: string;
-  updatedAt: string;
-}
+  backgroundImage?: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
 
 export class GetGameUseCase {
   readonly gameRepository: GameRepository;
